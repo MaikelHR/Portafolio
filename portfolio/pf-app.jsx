@@ -1,6 +1,6 @@
 // Portafolio Maikel — app principal (Bold creativo)
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#5b8cff",
+  "accent": "#00a86b",
   "marquee": true,
   "badge": true
 }/*EDITMODE-END*/;
