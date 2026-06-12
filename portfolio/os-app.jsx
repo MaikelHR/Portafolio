@@ -19,12 +19,16 @@ const OS_T = {
       "Iniciando MaikelOS...",
     ],
     bootSkip: "clic para saltar",
-    appPC: "Mi PC",
-    appProj: "Mis Proyectos",
-    appMines: "Buscaminas",
-    appTrash: "Papelera",
-    backToSite: "Volver al sitio",
+    appPC: "mi-pc",
+    appProj: "~/proyectos",
+    appAbout: "leeme.txt",
+    appSnake: "snake",
+    appTrash: "papelera",
+    backToSite: "volver al sitio",
     start: "inicio",
+    snakeHint: "flechas o WASD para moverte",
+    snakeRestart: "espacio para reiniciar",
+    snakePts: "pts",
     shutdown: "Apagar",
     offMsg: "MaikelOS se ha apagado.",
     offHint: "volviendo al sitio…",
@@ -39,9 +43,6 @@ const OS_T = {
     projLoading: "Cargando…",
     projError: "No se pudo conectar con GitHub.",
     projOpen: "abrir",
-    minesLeft: "minas",
-    minesWon: "¡Ganaste!",
-    minesLost: "Boom. Otra vez:",
     paintClear: "Limpiar",
     about: [
       "Soy Maikel Hernández, desarrollador full stack",
@@ -70,12 +71,16 @@ const OS_T = {
       "Starting MaikelOS...",
     ],
     bootSkip: "click to skip",
-    appPC: "My Computer",
-    appProj: "My Projects",
-    appMines: "Minesweeper",
-    appTrash: "Recycle Bin",
-    backToSite: "Back to site",
+    appPC: "my-pc",
+    appProj: "~/projects",
+    appAbout: "readme.txt",
+    appSnake: "snake",
+    appTrash: "recycle bin",
+    backToSite: "back to site",
     start: "start",
+    snakeHint: "arrows or WASD to move",
+    snakeRestart: "space to restart",
+    snakePts: "pts",
     shutdown: "Shut down",
     offMsg: "MaikelOS has shut down.",
     offHint: "going back to the site…",
@@ -90,9 +95,6 @@ const OS_T = {
     projLoading: "Loading…",
     projError: "Couldn't reach GitHub.",
     projOpen: "open",
-    minesLeft: "mines",
-    minesWon: "You won!",
-    minesLost: "Boom. Try again:",
     paintClear: "Clear",
     about: [
       "I'm Maikel Hernández, a full stack developer",
@@ -137,17 +139,11 @@ const Ic = {
       <line x1="20" y1="25" x2="28" y2="25" />
     </g>
   ),
-  mine: (
+  snake: (
     <g>
-      <circle cx="20" cy="20" r="10" />
-      <line x1="20" y1="4" x2="20" y2="10" />
-      <line x1="20" y1="30" x2="20" y2="36" />
-      <line x1="4" y1="20" x2="10" y2="20" />
-      <line x1="30" y1="20" x2="36" y2="20" />
-      <line x1="9" y1="9" x2="13" y2="13" />
-      <line x1="27" y1="27" x2="31" y2="31" />
-      <line x1="31" y1="9" x2="27" y2="13" />
-      <line x1="13" y1="27" x2="9" y2="31" />
+      <path d="M6 30 h10 v-10 h12 v-10 h6" />
+      <circle cx="34" cy="10" r="2.4" fill="currentColor" stroke="none" />
+      <circle cx="8" cy="12" r="2" fill="currentColor" stroke="none" />
     </g>
   ),
   paint: (
@@ -394,77 +390,106 @@ function TerminalApp({ onExit, onShutdown }) {
   );
 }
 
-/* buscaminas */
-const MS_R = 9, MS_C = 9, MS_M = 10;
-const msNb = (i) => {
-  const r = Math.floor(i / MS_C), c = i % MS_C, out = [];
-  for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
-    if (!dr && !dc) continue;
-    const rr = r + dr, cc = c + dc;
-    if (rr >= 0 && rr < MS_R && cc >= 0 && cc < MS_C) out.push(rr * MS_C + cc);
-  }
-  return out;
-};
-const msMake = () => {
-  const cells = Array.from({ length: MS_R * MS_C }, () => ({ m: false, o: false, f: false, n: 0 }));
-  let placed = 0;
-  while (placed < MS_M) {
-    const i = Math.floor(Math.random() * cells.length);
-    if (!cells[i].m) { cells[i].m = true; placed++; }
-  }
-  cells.forEach((cell, i) => { cell.n = msNb(i).filter((j) => cells[j].m).length; });
-  return cells;
-};
+/* snake */
+function SnakeApp() {
+  const ref = React.useRef(null);
+  const [score, setScore] = React.useState(0);
+  const [over, setOver] = React.useState(false);
 
-function MinesApp() {
-  const [cells, setCells] = React.useState(msMake);
-  const [st, setSt] = React.useState("play");
-  const flags = cells.filter((c) => c.f).length;
+  React.useEffect(() => {
+    const COLS = 24, ROWS = 15, CELL = 20;
+    const cv = ref.current;
+    cv.width = COLS * CELL;
+    cv.height = ROWS * CELL;
+    const ctx = cv.getContext("2d");
+    const rand = (n) => Math.floor(Math.random() * n);
+    const g = { snake: [], dir: null, next: null, food: null, over: false, score: 0 };
 
-  const reveal = (i) => {
-    if (st !== "play" || cells[i].f || cells[i].o) return;
-    const c = cells.map((x) => ({ ...x }));
-    let lost = false;
-    const stack = [i];
-    while (stack.length) {
-      const k = stack.pop();
-      if (c[k].o || c[k].f) continue;
-      c[k].o = true;
-      if (c[k].m) { lost = true; break; }
-      if (c[k].n === 0) msNb(k).forEach((j) => { if (!c[j].o) stack.push(j); });
-    }
-    if (lost) { c.forEach((x) => { if (x.m) x.o = true; }); setSt("lost"); }
-    else if (c.every((x) => x.o || x.m)) setSt("won");
-    setCells(c);
-  };
-  const flag = (e, i) => {
-    e.preventDefault();
-    if (st !== "play" || cells[i].o) return;
-    const c = cells.map((x) => ({ ...x }));
-    c[i].f = !c[i].f;
-    setCells(c);
-  };
-  const reset = () => { setCells(msMake()); setSt("play"); };
+    const placeFood = () => {
+      do { g.food = { x: rand(COLS), y: rand(ROWS) }; }
+      while (g.snake.some((s) => s.x === g.food.x && s.y === g.food.y));
+    };
+    const reset = () => {
+      g.snake = [{ x: 6, y: 7 }, { x: 5, y: 7 }, { x: 4, y: 7 }];
+      g.dir = { x: 1, y: 0 };
+      g.next = { x: 1, y: 0 };
+      g.over = false;
+      g.score = 0;
+      setScore(0);
+      setOver(false);
+      placeFood();
+    };
+
+    const draw = () => {
+      ctx.fillStyle = "#0a0c11";
+      ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.fillStyle = "rgba(255,255,255,.05)";
+      for (let y = 0; y < ROWS; y++)
+        for (let x = 0; x < COLS; x++)
+          ctx.fillRect(x * CELL + CELL / 2 - 1, y * CELL + CELL / 2 - 1, 2, 2);
+      ctx.fillStyle = "#ddd8c6";
+      ctx.fillRect(g.food.x * CELL + 4, g.food.y * CELL + 4, CELL - 8, CELL - 8);
+      g.snake.forEach((s, i) => {
+        ctx.fillStyle = i === 0 ? "#2fd699" : ACC;
+        ctx.fillRect(s.x * CELL + 1.5, s.y * CELL + 1.5, CELL - 3, CELL - 3);
+      });
+    };
+
+    const tick = () => {
+      if (g.over) return;
+      g.dir = g.next;
+      const h = { x: g.snake[0].x + g.dir.x, y: g.snake[0].y + g.dir.y };
+      if (h.x < 0 || h.x >= COLS || h.y < 0 || h.y >= ROWS ||
+          g.snake.some((s) => s.x === h.x && s.y === h.y)) {
+        g.over = true;
+        setOver(true);
+        return;
+      }
+      g.snake.unshift(h);
+      if (h.x === g.food.x && h.y === g.food.y) { g.score++; setScore(g.score); placeFood(); }
+      else g.snake.pop();
+      draw();
+    };
+
+    const KEYMAP = {
+      ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0],
+      w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0],
+    };
+    const onKey = (e) => {
+      if (e.target.tagName === "INPUT") return;
+      const dir = KEYMAP[e.key] || KEYMAP[(e.key || "").toLowerCase()];
+      if (dir) {
+        e.preventDefault();
+        if (dir[0] !== -g.dir.x || dir[1] !== -g.dir.y) g.next = { x: dir[0], y: dir[1] };
+      } else if (e.key === " ") {
+        e.preventDefault();
+        if (g.over) { reset(); draw(); }
+      }
+    };
+
+    reset();
+    draw();
+    document.addEventListener("keydown", onKey);
+    const id = setInterval(tick, 110);
+    return () => { document.removeEventListener("keydown", onKey); clearInterval(id); };
+  }, []);
 
   return (
-    <div className="os-mines">
-      <div className="bar">
-        <span className="mono">{MS_M - flags} {OS_T.minesLeft}</span>
-        <button className="face" onClick={reset}>{st === "lost" ? "✗" : st === "won" ? "★" : "◉"}</button>
-        <span className="mono">{st === "won" ? OS_T.minesWon : st === "lost" ? OS_T.minesLost : "9×9"}</span>
+    <div className="os-snake">
+      <div className="bar mono">
+        <span>SNAKE</span>
+        <span className="pts">{score} {OS_T.snakePts}</span>
       </div>
-      <div className="grid">
-        {cells.map((c, i) => (
-          <button
-            key={i}
-            className={"cell" + (c.o ? " o" : "") + (c.o && c.m ? " boom" : "")}
-            onClick={() => reveal(i)}
-            onContextMenu={(e) => flag(e, i)}
-          >
-            {c.f && !c.o ? "⚑" : c.o ? (c.m ? "✸" : c.n ? <span className={"n n" + c.n}>{c.n}</span> : "") : ""}
-          </button>
-        ))}
+      <div className="stage">
+        <canvas ref={ref} />
+        {over && (
+          <div className="overlay mono">
+            <b>GAME OVER</b>
+            <span>{OS_T.snakeRestart}</span>
+          </div>
+        )}
       </div>
+      <div className="hint mono">{OS_T.snakeHint}</div>
     </div>
   );
 }
@@ -549,13 +574,13 @@ function OsWindow({ win, app, deskRef, onFocus, onClose, onMin, onMax, onMove, c
   return (
     <div className={"os-win" + (win.min ? " hidden" : "")} style={style} onPointerDown={() => onFocus(win.appId)}>
       <div className="tbar" onPointerDown={drag} onDoubleClick={() => onMax(win.appId)}>
-        <span className="ticon"><OsIcon name={app.icon} size={15} /></span>
-        <span className="ttl">{app.title}</span>
-        <span className="tbtns">
-          <button className="tbtn" onClick={() => onMin(win.appId)} aria-label="minimizar">–</button>
-          <button className="tbtn" onClick={() => onMax(win.appId)} aria-label="maximizar">□</button>
-          <button className="tbtn x" onClick={() => onClose(win.appId)} aria-label="cerrar">×</button>
+        <span className="dots tbtn-wrap">
+          <button className="tbtn dot r" onClick={() => onClose(win.appId)} aria-label="cerrar" />
+          <button className="tbtn dot y" onClick={() => onMin(win.appId)} aria-label="minimizar" />
+          <button className="tbtn dot g" onClick={() => onMax(win.appId)} aria-label="maximizar" />
         </span>
+        <span className="ttl">{app.title}</span>
+        <span className="ticon"><OsIcon name={app.icon} size={14} /></span>
       </div>
       <div className={"wbody " + app.id}>{children}</div>
     </div>
@@ -584,10 +609,10 @@ function OsApp() {
   const APPS = [
     { id: "pc", title: OS_T.appPC, icon: "pc", w: 560, h: 460 },
     { id: "proj", title: OS_T.appProj, icon: "folder", w: 620, h: 470 },
-    { id: "about", title: "about.txt", icon: "doc", w: 520, h: 400 },
-    { id: "term", title: "Terminal", icon: "term", w: 640, h: 420 },
-    { id: "mines", title: OS_T.appMines, icon: "mine", w: 332, h: 442 },
-    { id: "paint", title: "Paint", icon: "paint", w: 660, h: 480 },
+    { id: "about", title: OS_T.appAbout, icon: "doc", w: 520, h: 400 },
+    { id: "term", title: "terminal", icon: "term", w: 640, h: 420 },
+    { id: "snake", title: OS_T.appSnake, icon: "snake", w: 524, h: 452 },
+    { id: "paint", title: "paint", icon: "paint", w: 660, h: 480 },
     { id: "trash", title: OS_T.appTrash, icon: "trash", w: 420, h: 300 },
   ];
   const appById = (id) => APPS.find((a) => a.id === id);
@@ -623,7 +648,7 @@ function OsApp() {
       case "proj": return <ProjectsApp />;
       case "about": return <AboutApp />;
       case "term": return <TerminalApp onExit={() => closeWin("term")} onShutdown={shutdown} />;
-      case "mines": return <MinesApp />;
+      case "snake": return <SnakeApp />;
       case "paint": return <PaintApp />;
       case "trash": return <TrashApp />;
       default: return null;
@@ -645,10 +670,11 @@ function OsApp() {
         {phase === "desktop" && (
           <div className="os-desktop-root">
             <div className="os-desk" ref={deskRef} onPointerDown={() => setStartOpen(false)}>
-              <svg className="wave" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
-                <path fill={ACC} fillOpacity="0.16" d="M0,200 C240,120 420,260 720,210 C1020,160 1200,240 1440,180 L1440,320 L0,320 Z" />
-                <path fill={ACC} fillOpacity="0.34" d="M0,250 C260,180 480,300 760,255 C1060,208 1240,280 1440,235 L1440,320 L0,320 Z" />
-              </svg>
+              <div className="os-wall" aria-hidden="true">
+                <div className="ghost">MAIKEL</div>
+                <div className="ghost acc">OS<span>.</span></div>
+                <div className="ver mono">v1.0 · {OS_LANG.toUpperCase()} · GMT-6</div>
+              </div>
               <div className="os-icons">
                 {APPS.map((a) => (
                   <button className="os-ico" key={a.id} onClick={() => openApp(a.id)}>
@@ -674,15 +700,15 @@ function OsApp() {
 
             {startOpen && (
               <div className="os-startmenu">
-                <div className="head"><span className="logo">mh</span> MaikelOS</div>
+                <div className="head mono"><span className="logo">mh</span> MaikelOS <i>v1.0</i></div>
                 {APPS.map((a) => (
                   <button key={a.id} onClick={() => openApp(a.id)}>
-                    <OsIcon name={a.icon} size={20} /> {a.title}
+                    <OsIcon name={a.icon} size={18} /> {a.title}
                   </button>
                 ))}
                 <div className="div" />
                 <button onClick={() => { window.location.href = "/"; }}>
-                  <OsIcon name="back" size={20} /> {OS_T.backToSite}
+                  <OsIcon name="back" size={18} /> {OS_T.backToSite}
                 </button>
                 <button onClick={shutdown}>
                   <span className="pwr">⏻</span> {OS_T.shutdown}
@@ -690,23 +716,23 @@ function OsApp() {
               </div>
             )}
 
-            <div className="os-taskbar">
+            <div className="os-taskbar mono">
               <button className={"os-start" + (startOpen ? " on" : "")} onClick={() => setStartOpen((o) => !o)}>
                 <span className="logo">mh</span> {OS_T.start}
               </button>
               <div className="tasks">
-                {wins.map((w) => {
+                {wins.map((w, i) => {
                   const app = appById(w.appId);
                   return (
                     <button key={w.appId} className={"task" + (w.min ? "" : " on")}
                       onClick={() => (w.min ? focusWin(w.appId) : minWin(w.appId))}>
-                      <OsIcon name={app.icon} size={15} /> {app.title}
+                      {i + 1}:{app.title}{w.min ? "" : "*"}
                     </button>
                   );
                 })}
               </div>
               <div className="tray">
-                <span className="clock mono">{clock}</span>
+                <span className="seg">{clock}</span>
                 <button className="pwrbtn" onClick={shutdown} aria-label="apagar">⏻</button>
               </div>
             </div>
