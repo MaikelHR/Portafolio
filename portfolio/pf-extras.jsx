@@ -241,7 +241,7 @@ function PfTerminal({ open, onClose, lang, setLang }) {
       case "date": out.push(new Date().toLocaleString(lang === "es" ? "es-CR" : "en-US")); break;
       case "echo": out.push(args.join(" ")); break;
       case "sudo": out.push(tt.sudo); break;
-      case "boot": window.location.href = "os"; return;
+      case "boot": case "maikeldos": window.location.href = "os"; return;
       case "clear": setHist([]); return;
       case "exit": onClose(); return;
       default: out.push(tt.notFound(cmd));
@@ -285,41 +285,6 @@ function PfTerminal({ open, onClose, lang, setLang }) {
         </div>
       </div>
     </div>
-  );
-}
-
-/* ---------- computadora retro del footer (abre la terminal) ---------- */
-function PfRetroPC({ caption, onClick }) {
-  return (
-    <button className="pf-pc" onClick={onClick} aria-label={caption}>
-      <svg viewBox="0 0 230 150" aria-hidden="true">
-        {/* monitor */}
-        <rect x="22" y="6" width="118" height="88" rx="7" fill="#ddd8c6" />
-        <rect x="32" y="15" width="98" height="64" rx="4" fill="#0a0c11" />
-        <text className="crt-text" x="40" y="34">$ boot --pf</text>
-        <rect className="crt-cursor" x="40" y="42" width="7" height="11" fill="var(--acc)" />
-        <rect x="64" y="94" width="34" height="8" fill="#c9c4b0" />
-        <rect x="50" y="102" width="62" height="6" rx="3" fill="#c9c4b0" />
-        {/* torre */}
-        <rect x="158" y="10" width="50" height="96" rx="5" fill="#ddd8c6" />
-        <rect x="166" y="22" width="34" height="5" rx="2" fill="#b9b4a0" />
-        <rect x="166" y="32" width="34" height="5" rx="2" fill="#b9b4a0" />
-        <rect x="166" y="46" width="34" height="3" rx="1.5" fill="#cdc8b6" />
-        <circle className="pwr" cx="171" cy="94" r="3.5" fill="var(--acc)" />
-        {/* teclado */}
-        <rect x="18" y="118" width="126" height="20" rx="5" fill="#ddd8c6" />
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <rect key={"k1" + i} x={26 + i * 14} y="123" width="10" height="4" rx="1" fill="#b9b4a0" />
-        ))}
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <rect key={"k2" + i} x={26 + i * 14} y="130" width="10" height="4" rx="1" fill="#b9b4a0" />
-        ))}
-        {/* mouse */}
-        <path d="M150 130 C 150 124, 146 122, 146 116" stroke="#b9b4a0" strokeWidth="1.5" fill="none" />
-        <rect x="152" y="124" width="15" height="22" rx="7.5" fill="#ddd8c6" />
-      </svg>
-      <span className="cap">{caption}</span>
-    </button>
   );
 }
 
@@ -385,4 +350,4 @@ function PfRepos({ lang, t }) {
   );
 }
 
-Object.assign(window, { PfHeroDots, PfPalette, PfTerminal, PfRepos, PfRetroPC });
+Object.assign(window, { PfHeroDots, PfPalette, PfTerminal, PfRepos });

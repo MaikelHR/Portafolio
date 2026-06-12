@@ -190,16 +190,11 @@ function PfApp() {
 
       <footer className="pf-foot" id="contacto" data-screen-label="Contacto">
         <div className="wrap">
-          <div className="pf-ftop">
-            <div>
-              <a className="pf-fbig rv" href={"mailto:" + PF_LINKS.email} title={t.writeMe}>
-                {t.talk[0]}<span>{t.talk[1]}</span> <i>⟶</i>
-              </a>
-              <div className="pf-fmail">
-                <a href={"mailto:" + PF_LINKS.email}>{PF_LINKS.email}</a>
-              </div>
-            </div>
-            <PfRetroPC caption={t.pcCaption} onClick={() => { window.location.href = "os"; }} />
+          <a className="pf-fbig rv" href={"mailto:" + PF_LINKS.email} title={t.writeMe}>
+            {t.talk[0]}<span>{t.talk[1]}</span> <i>⟶</i>
+          </a>
+          <div className="pf-fmail">
+            <a href={"mailto:" + PF_LINKS.email}>{PF_LINKS.email}</a>
           </div>
           <div className="pf-frow">
             <span>{t.footNote}</span>

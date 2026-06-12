@@ -230,23 +230,6 @@ body { margin: 0; background: #07080c; }
 .pf-repos-all i { font-style: normal; transition: transform .25s; }
 .pf-repos-all:hover i { transform: translateX(8px); }
 
-/* ---------- computadora retro del footer ---------- */
-.pf-ftop { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
-.pf-pc { background: none; border: none; cursor: pointer; display: flex; flex-direction: column;
-  align-items: center; gap: 10px; padding: 0 0 26px; margin-left: auto;
-  transition: transform .3s cubic-bezier(.2,.8,.2,1); }
-.pf-pc:hover { transform: translateY(-5px); }
-.pf-pc svg { width: clamp(150px, 16vw, 230px); height: auto; display: block; }
-.pf-pc .crt-text { font-family: "JetBrains Mono", monospace; font-size: 9.5px; fill: var(--acc); }
-.pf-pc .cap { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .16em;
-  color: rgba(255,255,255,.4); transition: color .2s; }
-.pf-pc:hover .cap { color: var(--acc); }
-@media (prefers-reduced-motion: no-preference) {
-  .pf-pc .crt-cursor { animation: pf-blink 1.1s steps(1) infinite; }
-  .pf-pc .pwr { animation: pf-pulse 2.2s ease-in-out infinite; }
-}
-@keyframes pf-blink { 50% { opacity: 0; } }
-
 /* ---------- scroll reveal ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
