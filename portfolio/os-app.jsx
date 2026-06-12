@@ -21,7 +21,7 @@ const OS_T = {
     bootSkip: "clic para saltar",
     appPC: "mi-pc",
     appProj: "~/proyectos",
-    appAbout: "leeme.txt",
+    appAbout: "readme.txt",
     appSnake: "snake",
     appTrash: "papelera",
     backToSite: "volver al sitio",

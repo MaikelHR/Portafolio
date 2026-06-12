@@ -79,7 +79,7 @@ button { font-family: inherit; }
 .os-win .ticon { display: inline-flex; color: rgba(0,168,107,.7); }
 .os-win .wbody { flex: 1; overflow: auto; color: rgba(255,255,255,.82); }
 
-/* ---------- contenido: leeme.txt ---------- */
+/* ---------- contenido: readme.txt ---------- */
 .os-notepad { margin: 0; padding: 20px 22px; font-family: "JetBrains Mono", monospace;
   font-size: 13px; line-height: 1.85; white-space: pre-wrap; color: rgba(255,255,255,.78); }
 
