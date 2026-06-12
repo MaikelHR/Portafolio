@@ -1,4 +1,4 @@
-/* MaikelOS — modo escritorio, lenguaje visual del portafolio (oscuro + jade) */
+/* MaikelDOS — modo escritorio, lenguaje visual del portafolio (oscuro + jade) */
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; overflow: hidden; }
 body { background: #0c0d11; font-family: "Space Grotesk", sans-serif; }

@@ -1,4 +1,4 @@
-// MaikelOS — modo escritorio retro del portafolio.
+// MaikelDOS — modo escritorio retro del portafolio.
 // Secuencia de boot, ventanas arrastrables, terminal, buscaminas, paint,
 // proyectos reales y apagado. Mismos tonos del sitio: oscuro + jade.
 
@@ -8,7 +8,7 @@ const ACC = "#00a86b";
 const OS_T = {
   es: {
     boot: [
-      "MAIKELOS BIOS v1.0",
+      "MAIKELDOS BIOS v1.0",
       "Copyright (C) 2026 Maikel Hernández",
       "",
       "Comprobando memoria ........ OK",
@@ -16,7 +16,7 @@ const OS_T = {
       "Cargando stack ............. OK",
       "Montando /proyectos ........ OK",
       "",
-      "Iniciando MaikelOS...",
+      "Iniciando MaikelDOS...",
     ],
     bootSkip: "clic para saltar",
     appPC: "mi-pc",
@@ -30,7 +30,7 @@ const OS_T = {
     snakeRestart: "espacio para reiniciar",
     snakePts: "pts",
     shutdown: "Apagar",
-    offMsg: "MaikelOS se ha apagado.",
+    offMsg: "MaikelDOS se ha apagado.",
     offHint: "volviendo al sitio…",
     trashEmpty: "La papelera está vacía.",
     pcSystem: "Sistema",
@@ -60,7 +60,7 @@ const OS_T = {
   },
   en: {
     boot: [
-      "MAIKELOS BIOS v1.0",
+      "MAIKELDOS BIOS v1.0",
       "Copyright (C) 2026 Maikel Hernández",
       "",
       "Checking memory ............ OK",
@@ -68,7 +68,7 @@ const OS_T = {
       "Loading stack .............. OK",
       "Mounting /projects ......... OK",
       "",
-      "Starting MaikelOS...",
+      "Starting MaikelDOS...",
     ],
     bootSkip: "click to skip",
     appPC: "my-pc",
@@ -82,7 +82,7 @@ const OS_T = {
     snakeRestart: "space to restart",
     snakePts: "pts",
     shutdown: "Shut down",
-    offMsg: "MaikelOS has shut down.",
+    offMsg: "MaikelDOS has shut down.",
     offHint: "going back to the site…",
     trashEmpty: "The recycle bin is empty.",
     pcSystem: "System",
@@ -216,7 +216,7 @@ function TrashApp() {
 function ComputerApp() {
   return (
     <div className="os-pcbody">
-      <div className="row"><b>{OS_T.pcSystem}</b><span>MaikelOS 1.0 · React 18 + Babel</span></div>
+      <div className="row"><b>{OS_T.pcSystem}</b><span>MaikelDOS 1.0 · React 18 + Babel</span></div>
       <div className="row"><b>{OS_T.pcUser}</b><span>{OS_T.pcGuest}</span></div>
       <div className="row"><b>{OS_T.pcWhere}</b><span>Costa Rica · GMT-6</span></div>
       <div className="disk">
@@ -284,7 +284,7 @@ function ProjectsApp() {
 /* terminal dentro del OS */
 const OS_TERM = {
   es: {
-    banner: ["maikel@maikelos · v1.0", "Escribe 'help' para ver los comandos."],
+    banner: ["maikel@maikeldos · v1.0", "Escribe 'help' para ver los comandos."],
     help: [
       "help        comandos disponibles",
       "whoami      sobre mí",
@@ -293,7 +293,7 @@ const OS_TERM = {
       "contact     contacto y redes",
       "open <x>    abre github | linkedin | documind",
       "back        vuelve al portafolio",
-      "shutdown    apaga MaikelOS",
+      "shutdown    apaga MaikelDOS",
       "clear       limpia la pantalla",
       "exit        cierra la ventana",
     ],
@@ -304,7 +304,7 @@ const OS_TERM = {
     opening: (x) => "abriendo " + x + "…",
   },
   en: {
-    banner: ["maikel@maikelos · v1.0", "Type 'help' to see the commands."],
+    banner: ["maikel@maikeldos · v1.0", "Type 'help' to see the commands."],
     help: [
       "help        available commands",
       "whoami      about me",
@@ -313,7 +313,7 @@ const OS_TERM = {
       "contact     contact and links",
       "open <x>    opens github | linkedin | documind",
       "back        returns to the portfolio",
-      "shutdown    shuts down MaikelOS",
+      "shutdown    shuts down MaikelDOS",
       "clear       clears the screen",
       "exit        closes the window",
     ],
@@ -672,7 +672,7 @@ function OsApp() {
             <div className="os-desk" ref={deskRef} onPointerDown={() => setStartOpen(false)}>
               <div className="os-wall" aria-hidden="true">
                 <div className="ghost">MAIKEL</div>
-                <div className="ghost acc">OS<span>.</span></div>
+                <div className="ghost acc">DOS<span>.</span></div>
                 <div className="ver mono">v1.0 · {OS_LANG.toUpperCase()} · GMT-6</div>
               </div>
               <div className="os-icons">
@@ -700,7 +700,7 @@ function OsApp() {
 
             {startOpen && (
               <div className="os-startmenu">
-                <div className="head mono"><span className="logo">mh</span> MaikelOS <i>v1.0</i></div>
+                <div className="head mono"><span className="logo">mh</span> MaikelDOS <i>v1.0</i></div>
                 {APPS.map((a) => (
                   <button key={a.id} onClick={() => openApp(a.id)}>
                     <OsIcon name={a.icon} size={18} /> {a.title}
