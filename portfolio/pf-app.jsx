@@ -134,7 +134,7 @@ function PfApp() {
               </a>
             </div>
             <div className="pf-shotframe">
-              <img src="portfolio/documind.png" alt="DocuMind — asistente de documentos con IA" />
+              <img src="portfolio/documind.png" alt="DocuMind, asistente de documentos con IA" />
             </div>
           </div>
         </article>
