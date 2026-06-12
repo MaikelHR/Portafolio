@@ -2,7 +2,8 @@
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#00a86b",
   "marquee": true,
-  "badge": true
+  "badge": true,
+  "dots": true
 }/*EDITMODE-END*/;
 
 // hook: scroll reveal — IO + polling por timer (robusto en iframes throttled donde
@@ -41,14 +42,46 @@ function useReveal(deps) {
 function PfApp() {
   const [tw, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [lang, setLang] = React.useState(() => localStorage.getItem("pf_lang") || "es");
+  const [paletteOpen, setPaletteOpen] = React.useState(false);
+  const [termOpen, setTermOpen] = React.useState(false);
   const t = PF_I18N[lang];
   useReveal([lang]);
 
-  const toggleLang = () => {
-    const next = lang === "es" ? "en" : "es";
+  const setLangPersist = (next) => {
     setLang(next);
     localStorage.setItem("pf_lang", next);
   };
+  const toggleLang = () => setLangPersist(lang === "es" ? "en" : "es");
+
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const goto = (id) => () => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+  const ext = (url) => () => window.open(url, "_blank", "noopener");
+  const paletteItems = [
+    { group: t.paletteNav, label: t.actTop, run: () => window.scrollTo({ top: 0, behavior: "smooth" }) },
+    { group: t.paletteNav, label: t.navSkills, run: goto("skills") },
+    { group: t.paletteNav, label: t.navProjects, run: goto("proyectos") },
+    { group: t.paletteNav, label: t.navGithub, run: goto("github") },
+    { group: t.paletteNav, label: t.navContact, run: goto("contacto") },
+    { group: t.paletteActions, label: t.actTerminal, hint: ">_", run: () => setTermOpen(true) },
+    { group: t.paletteActions, label: t.actLang, hint: "ES / EN", run: toggleLang },
+    { group: t.paletteLinks, label: "GitHub", hint: PF_LINKS.githubLabel, run: ext(PF_LINKS.github) },
+    { group: t.paletteLinks, label: "LinkedIn", run: ext(PF_LINKS.linkedin) },
+    { group: t.paletteLinks, label: "Email", hint: PF_LINKS.email, run: () => { location.href = "mailto:" + PF_LINKS.email; } },
+    { group: t.paletteLinks, label: "DocuMind", hint: "documind-lake.vercel.app", run: ext(PF_LINKS.documind) },
+  ];
 
   return (
     <div className="pf" style={{ "--acc": tw.accent }}>
@@ -58,7 +91,14 @@ function PfApp() {
           <span className="r">
             <a href="#skills">{t.navSkills}</a>
             <a href="#proyectos">{t.navProjects}</a>
+            <a href="#github">{t.navGithub}</a>
             <a href="#contacto">{t.navContact}</a>
+            <button className="pf-kbtn" onClick={() => setPaletteOpen(true)} aria-label="Paleta de comandos / command palette">
+              <i>⌕</i> Ctrl K
+            </button>
+            <button className="pf-termbtn" onClick={() => setTermOpen(true)} aria-label="Abrir terminal / open terminal">
+              &gt;_
+            </button>
             <button className="pf-lang" onClick={toggleLang} aria-label="Cambiar idioma / switch language">
               <span className={lang === "es" ? "on" : ""}>ES</span>
               <span className={lang === "en" ? "on" : ""}>EN</span>
@@ -68,6 +108,7 @@ function PfApp() {
       </nav>
 
       <header className="pf-hero" data-screen-label="Hero">
+        {tw.dots && <PfHeroDots accent={tw.accent} />}
         <h1 className="pf-h1 rv">
           {t.heroLine1} <span className="ghost">{t.heroLine2}</span><br />
           {t.heroLine3}<span className="acc">.</span>
@@ -144,6 +185,8 @@ function PfApp() {
         </div>
       </section>
 
+      <PfRepos lang={lang} t={t} />
+
       <footer className="pf-foot" id="contacto" data-screen-label="Contacto">
         <div className="wrap">
           <a className="pf-fbig rv" href={"mailto:" + PF_LINKS.email} title={t.writeMe}>
@@ -162,6 +205,9 @@ function PfApp() {
         </div>
       </footer>
 
+      <PfPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} t={t} items={paletteItems} />
+      <PfTerminal open={termOpen} onClose={() => setTermOpen(false)} lang={lang} setLang={setLangPersist} />
+
       <TweaksPanel>
         <TweakSection label="Estilo" />
         <TweakColor
@@ -172,6 +218,7 @@ function PfApp() {
         />
         <TweakToggle label="Marquee animado" value={tw.marquee} onChange={(v) => setTweak("marquee", v)} />
         <TweakToggle label="Badge 'Open to work'" value={tw.badge} onChange={(v) => setTweak("badge", v)} />
+        <TweakToggle label="Partículas del hero" value={tw.dots} onChange={(v) => setTweak("dots", v)} />
       </TweaksPanel>
     </div>
   );

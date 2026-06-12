@@ -140,6 +140,96 @@ body { margin: 0; background: #07080c; }
 .pf-frow a { border-bottom: 1px solid var(--acc); padding-bottom: 3px; color: #fff; transition: color .2s; }
 .pf-frow a:hover { color: var(--acc); }
 
+/* ---------- partículas del hero ---------- */
+.pf-dots { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.pf-hero > *:not(.pf-dots) { position: relative; z-index: 1; }
+
+/* ---------- botones de nav: paleta y terminal ---------- */
+.pf-kbtn { display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px; padding: 7px 14px; cursor: pointer; background: rgba(255,255,255,.03);
+  font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .08em;
+  color: rgba(255,255,255,.55); transition: border-color .2s, color .2s; }
+.pf-kbtn i { font-style: normal; font-size: 13px; }
+.pf-kbtn:hover { border-color: var(--acc); color: #fff; }
+.pf-termbtn { border: 1px solid rgba(255,255,255,.14); border-radius: 8px; padding: 6px 10px;
+  cursor: pointer; background: rgba(255,255,255,.03); font-family: "JetBrains Mono", monospace;
+  font-size: 12px; color: var(--acc); transition: border-color .2s, background .2s; }
+.pf-termbtn:hover { border-color: var(--acc); background: rgba(255,255,255,.06); }
+@media (max-width: 600px) { .pf-kbtn { display: none; } }
+
+/* ---------- paleta de comandos ---------- */
+.pf-cmdk { position: fixed; inset: 0; z-index: 100; background: rgba(4,5,8,.6);
+  backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start;
+  padding: 16vh 20px 0; }
+.pf-cmdk-panel { width: min(580px, 100%); background: #0c0e14; border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+.pf-cmdk-top { display: flex; align-items: center; gap: 12px; padding: 16px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.1); }
+.pf-cmdk-top input { flex: 1; background: none; border: none; outline: none; color: #f2f3f7;
+  font-family: "Space Grotesk", sans-serif; font-size: 16px; }
+.pf-cmdk-top input::placeholder { color: rgba(255,255,255,.35); }
+.pf-cmdk-top .esc { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .08em;
+  color: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.18); border-radius: 6px; padding: 3px 7px; }
+.pf-cmdk-list { max-height: 52vh; overflow-y: auto; padding: 10px; }
+.pf-cmdk-group { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(255,255,255,.35); padding: 12px 12px 7px; }
+.pf-cmdk-item { display: flex; justify-content: space-between; align-items: center; gap: 18px;
+  width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: rgba(255,255,255,.8);
+  font-family: "Space Grotesk", sans-serif; font-size: 15px; padding: 11px 12px; border-radius: 10px; }
+.pf-cmdk-item.sel { background: color-mix(in oklab, var(--acc) 16%, transparent); color: #fff; }
+.pf-cmdk-item .hint { font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+  color: rgba(255,255,255,.35); flex: none; }
+.pf-cmdk-empty { padding: 22px 12px; color: rgba(255,255,255,.4); font-size: 14.5px; }
+
+/* ---------- terminal ---------- */
+.pf-termwrap { position: fixed; inset: 0; z-index: 100; background: rgba(4,5,8,.6);
+  backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; padding: 20px; }
+.pf-term { width: min(700px, 100%); height: min(440px, 80vh); background: #0a0c11;
+  border: 1px solid rgba(255,255,255,.16); border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  font-family: "JetBrains Mono", monospace; font-size: 13.5px; }
+.pf-term-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); }
+.pf-term-bar .dot { width: 12px; height: 12px; border-radius: 50%; }
+.pf-term-bar .dot.r { background: #ff5f57; cursor: pointer; }
+.pf-term-bar .dot.y { background: #febc2e; }
+.pf-term-bar .dot.g { background: #28c840; }
+.pf-term-bar .title { margin-left: 10px; font-size: 11.5px; letter-spacing: .06em;
+  color: rgba(255,255,255,.45); }
+.pf-term-body { flex: 1; overflow-y: auto; padding: 16px 18px; line-height: 1.75; cursor: text; }
+.pf-term-body .line { white-space: pre-wrap; word-break: break-word; color: rgba(255,255,255,.75); }
+.pf-term-body .line.in { color: #fff; }
+.pf-term-body .ps1 { color: var(--acc); font-weight: 700; }
+.pf-term-body .line.prompt { display: flex; }
+.pf-term-body .line.prompt input { flex: 1; background: none; border: none; outline: none;
+  color: #fff; font: inherit; padding: 0; }
+
+/* ---------- repos de github ---------- */
+.pf-repos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 1000px) { .pf-repos { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .pf-repos { grid-template-columns: 1fr; } }
+.pf-repo { display: flex; flex-direction: column; gap: 10px; border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px; padding: 24px; background: rgba(255,255,255,.02);
+  transition: border-color .2s, transform .25s, background .2s; }
+.pf-repo:hover { border-color: var(--acc); background: rgba(255,255,255,.05); transform: translateY(-4px); }
+.pf-repo .top { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+.pf-repo h4 { font-family: "Syne", sans-serif; font-weight: 700; font-size: 19px; margin: 0;
+  word-break: break-word; }
+.pf-repo .arr { font-family: "JetBrains Mono", monospace; color: rgba(255,255,255,.35);
+  transition: color .2s, transform .25s; flex: none; }
+.pf-repo:hover .arr { color: var(--acc); transform: translate(3px, -3px); }
+.pf-repo p { margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(255,255,255,.6); flex: 1; }
+.pf-repo .meta { display: flex; gap: 18px; font-family: "JetBrains Mono", monospace; font-size: 12px;
+  color: rgba(255,255,255,.5); margin-top: 4px; }
+.pf-repo .meta span { display: inline-flex; align-items: center; gap: 7px; }
+.pf-repo .ldot { width: 9px; height: 9px; border-radius: 50%; background: var(--acc); display: inline-block; }
+.pf-repos-note { color: rgba(255,255,255,.55); font-size: 15px; font-family: "JetBrains Mono", monospace; }
+.pf-repos-note a { color: #fff; border-bottom: 1px solid var(--acc); padding-bottom: 2px; }
+.pf-repos-all { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px;
+  font-family: "Syne", sans-serif; font-weight: 700; font-size: 19px; color: var(--acc); }
+.pf-repos-all i { font-style: normal; transition: transform .25s; }
+.pf-repos-all:hover i { transform: translateX(8px); }
+
 /* ---------- scroll reveal ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
