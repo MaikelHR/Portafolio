@@ -75,6 +75,7 @@ function PfApp() {
     { group: t.paletteNav, label: t.navProjects, run: goto("proyectos") },
     { group: t.paletteNav, label: t.navGithub, run: goto("github") },
     { group: t.paletteNav, label: t.navContact, run: goto("contacto") },
+    { group: t.paletteActions, label: t.actBoot, hint: t.actBootHint, run: () => { window.location.href = "os"; } },
     { group: t.paletteActions, label: t.actTerminal, hint: ">_", run: () => setTermOpen(true) },
     { group: t.paletteActions, label: t.actLang, hint: "ES / EN", run: toggleLang },
     { group: t.paletteLinks, label: "GitHub", hint: PF_LINKS.githubLabel, run: ext(PF_LINKS.github) },
@@ -198,7 +199,7 @@ function PfApp() {
                 <a href={"mailto:" + PF_LINKS.email}>{PF_LINKS.email}</a>
               </div>
             </div>
-            <PfRetroPC caption={t.pcCaption} onClick={() => setTermOpen(true)} />
+            <PfRetroPC caption={t.pcCaption} onClick={() => { window.location.href = "os"; }} />
           </div>
           <div className="pf-frow">
             <span>{t.footNote}</span>

@@ -152,6 +152,7 @@ const PF_TERM_TEXT = {
       "contact       contacto y redes",
       "open <x>      abre github | linkedin | documind",
       "lang <x>      cambia el idioma (es | en)",
+      "boot          arranca MaikelOS (modo escritorio)",
       "clear         limpia la pantalla",
       "exit          cierra la terminal",
     ],
@@ -174,6 +175,7 @@ const PF_TERM_TEXT = {
       "contact       contact and links",
       "open <x>      opens github | linkedin | documind",
       "lang <x>      switches language (es | en)",
+      "boot          boots MaikelOS (desktop mode)",
       "clear         clears the screen",
       "exit          closes the terminal",
     ],
@@ -239,6 +241,7 @@ function PfTerminal({ open, onClose, lang, setLang }) {
       case "date": out.push(new Date().toLocaleString(lang === "es" ? "es-CR" : "en-US")); break;
       case "echo": out.push(args.join(" ")); break;
       case "sudo": out.push(tt.sudo); break;
+      case "boot": window.location.href = "os"; return;
       case "clear": setHist([]); return;
       case "exit": onClose(); return;
       default: out.push(tt.notFound(cmd));
