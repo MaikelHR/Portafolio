@@ -4,6 +4,7 @@ const PF_LINKS = {
   githubLabel: "github.com/MaikelHR",
   linkedin: "https://www.linkedin.com/in/maikel-hernández-ruiz-539004165/",
   documind: "https://documind-lake.vercel.app",
+  hookwire: "https://hookwire.vercel.app",
   email: "maikelhernandezr4201@gmail.com",
 };
 
@@ -60,11 +61,14 @@ const PF_I18N = {
       ". Construyo productos web completos, desde la base de datos hasta la interfaz. Vivo en Costa Rica, egresado del TEC.",
     badge: ["OPEN", "TO", "WORK ✦"],
     skillsLabel: "01 / STACK",
-    projectLabel: "02 / PROYECTO DESTACADO",
+    projectLabel: "02 / PROYECTOS DESTACADOS",
     live: "LIVE IN PRODUCTION",
     projectSummary: "Asistente de documentos con IA y citas verificables.",
     projectDesc:
       "Sistema RAG completo desplegado serverless en Vercel: embeddings de Gemini con búsqueda por similitud de coseno sobre PostgreSQL/pgvector, reconstrucción de citas en el servidor e ingesta de PDFs del usuario (parseo, chunking, embeddings). Incluye rate limiting por IP.",
+    hookwireSummary: "Servicio de entrega de webhooks con reintentos y firmas.",
+    hookwireDesc:
+      "Plataforma de delivery de webhooks sobre Vercel Functions y Neon Postgres: la cola vive en Postgres con claim concurrente (FOR NO KEY UPDATE SKIP LOCKED), reintentos con backoff exponencial y dead-letter queue. Cada webhook lleva firma HMAC-SHA256 estilo Stripe verificada con timingSafeEqual, entrega at-least-once idempotente y rate limiting por IP. Demo en vivo con sesiones aisladas por navegador.",
     seeProject: "VER PROYECTO",
     moreSoon: "Más proyectos en camino.",
     navGithub: "GITHUB",
@@ -99,11 +103,14 @@ const PF_I18N = {
       ". I build complete web products, from the database to the interface. Based in Costa Rica, TEC graduate.",
     badge: ["OPEN", "TO", "WORK ✦"],
     skillsLabel: "01 / STACK",
-    projectLabel: "02 / FEATURED PROJECT",
+    projectLabel: "02 / FEATURED PROJECTS",
     live: "LIVE IN PRODUCTION",
     projectSummary: "AI document assistant with verifiable citations.",
     projectDesc:
       "Full RAG system deployed serverless on Vercel: Gemini embeddings with cosine similarity search over PostgreSQL/pgvector, server-side citation rebuilding, and user PDF ingestion (parse, chunk, embeddings). Includes per-IP rate limiting.",
+    hookwireSummary: "Webhook delivery service with retries and signatures.",
+    hookwireDesc:
+      "Webhook delivery platform on Vercel Functions and Neon Postgres: the queue lives in Postgres with concurrent claiming (FOR NO KEY UPDATE SKIP LOCKED), exponential backoff retries and a dead-letter queue. Every webhook carries a Stripe-style HMAC-SHA256 signature verified with timingSafeEqual, idempotent at-least-once delivery and per-IP rate limiting. Live demo with per-browser isolated sessions.",
     seeProject: "SEE PROJECT",
     moreSoon: "More projects coming soon.",
     navGithub: "GITHUB",

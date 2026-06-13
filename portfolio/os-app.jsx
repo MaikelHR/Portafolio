@@ -168,6 +168,7 @@ const Ic = {
       <path d="M28 14 l6 6 -6 6" />
     </g>
   ),
+  bolt: <path d="M22 4 L8 23 h9 l-2 13 14 -19 h-9 z" />,
 };
 
 function OsIcon({ name, size = 38 }) {
@@ -264,6 +265,14 @@ function ProjectsApp() {
         </div>
         <i>↗</i>
       </a>
+      <a className="feat" href={PF_LINKS.hookwire} target="_blank" rel="noopener">
+        <OsIcon name="bolt" size={30} />
+        <div>
+          <b>Hookwire</b>
+          <span>Webhooks · HMAC · Neon Postgres · Vercel</span>
+        </div>
+        <i>↗</i>
+      </a>
       <div className="lbl">{OS_T.projRepos}</div>
       {state.loading && <div className="note">{OS_T.projLoading}</div>}
       {state.error && (
@@ -291,7 +300,7 @@ const OS_TERM = {
       "skills      stack técnico",
       "projects    proyectos",
       "contact     contacto y redes",
-      "open <x>    abre github | linkedin | documind",
+      "open <x>    abre github | linkedin | documind | hookwire",
       "back        vuelve al portafolio",
       "shutdown    apaga MaikelDOS",
       "clear       limpia la pantalla",
@@ -300,7 +309,7 @@ const OS_TERM = {
     whoami: ["Maikel Hernández · Full Stack Developer", "Costa Rica · egresado del TEC"],
     notFound: (c) => "comando no encontrado: " + c + ". Escribe 'help'.",
     sudo: "sudo: permiso denegado",
-    openWhat: "uso: open github | linkedin | documind",
+    openWhat: "uso: open github | linkedin | documind | hookwire",
     opening: (x) => "abriendo " + x + "…",
   },
   en: {
@@ -311,7 +320,7 @@ const OS_TERM = {
       "skills      tech stack",
       "projects    projects",
       "contact     contact and links",
-      "open <x>    opens github | linkedin | documind",
+      "open <x>    opens github | linkedin | documind | hookwire",
       "back        returns to the portfolio",
       "shutdown    shuts down MaikelDOS",
       "clear       clears the screen",
@@ -320,7 +329,7 @@ const OS_TERM = {
     whoami: ["Maikel Hernández · Full Stack Developer", "Costa Rica · TEC graduate"],
     notFound: (c) => "command not found: " + c + ". Type 'help'.",
     sudo: "sudo: permission denied",
-    openWhat: "usage: open github | linkedin | documind",
+    openWhat: "usage: open github | linkedin | documind | hookwire",
     opening: (x) => "opening " + x + "…",
   },
 }[OS_LANG];
@@ -346,14 +355,14 @@ function TerminalApp({ onExit, onShutdown }) {
         PF_SKILLS.forEach((g) => out.push(g.group[OS_LANG] + ": " + g.items.map(([n]) => n).join(", ")));
         break;
       case "projects":
-        out.push("DocuMind · " + PF_LINKS.documind, PF_LINKS.github);
+        out.push("DocuMind · " + PF_LINKS.documind, "Hookwire · " + PF_LINKS.hookwire, PF_LINKS.github);
         break;
       case "contact":
         out.push(PF_LINKS.email, PF_LINKS.github, PF_LINKS.linkedin);
         break;
       case "open": {
         const target = (args[0] || "").toLowerCase();
-        const urls = { github: PF_LINKS.github, linkedin: PF_LINKS.linkedin, documind: PF_LINKS.documind };
+        const urls = { github: PF_LINKS.github, linkedin: PF_LINKS.linkedin, documind: PF_LINKS.documind, hookwire: PF_LINKS.hookwire };
         if (urls[target]) { out.push(OS_TERM.opening(target)); window.open(urls[target], "_blank", "noopener"); }
         else out.push(OS_TERM.openWhat);
         break;

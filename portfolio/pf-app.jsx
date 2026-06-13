@@ -82,6 +82,7 @@ function PfApp() {
     { group: t.paletteLinks, label: "LinkedIn", run: ext(PF_LINKS.linkedin) },
     { group: t.paletteLinks, label: "Email", hint: PF_LINKS.email, run: () => { location.href = "mailto:" + PF_LINKS.email; } },
     { group: t.paletteLinks, label: "DocuMind", hint: "documind-lake.vercel.app", run: ext(PF_LINKS.documind) },
+    { group: t.paletteLinks, label: "Hookwire", hint: "hookwire.vercel.app", run: ext(PF_LINKS.hookwire) },
   ];
 
   return (
@@ -180,7 +181,32 @@ function PfApp() {
             </div>
           </div>
         </article>
-        <div className="pf-moresoon rv d2">
+        <article className="pf-poster rv d2" style={{ "--acc": "#c77bff" }}>
+          <div className="pf-poster-top">
+            <h3 className="pf-pname">Hook<br />wire<sup>®</sup></h3>
+            <span className="pf-live">{t.live}</span>
+          </div>
+          <div className="pf-poster-body">
+            <div>
+              <p className="pf-pdesc"><b>{t.hookwireSummary}</b> {t.hookwireDesc}</p>
+              <div className="pf-ptags">
+                <span className="pf-ptag">Webhooks</span>
+                <span className="pf-ptag">TypeScript</span>
+                <span className="pf-ptag">Neon · Postgres</span>
+                <span className="pf-ptag">HMAC · SHA-256</span>
+                <span className="pf-ptag">Vercel Functions</span>
+                <span className="pf-ptag">Serverless</span>
+              </div>
+              <a className="pf-parrow" href={PF_LINKS.hookwire} target="_blank" rel="noopener">
+                {t.seeProject} <i>⟶</i>
+              </a>
+            </div>
+            <div className="pf-shotframe">
+              <img src="portfolio/hookwire.png" alt="Hookwire, servicio de entrega de webhooks" />
+            </div>
+          </div>
+        </article>
+        <div className="pf-moresoon rv d3">
           <span>{t.moreSoon}</span>
           <span className="mono">// WIP</span>
         </div>
