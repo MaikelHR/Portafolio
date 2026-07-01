@@ -5,6 +5,7 @@ const PF_LINKS = {
   linkedin: "https://www.linkedin.com/in/maikel-hernández-ruiz-539004165/",
   documind: "https://documind-lake.vercel.app",
   hookwire: "https://hookwire.vercel.app",
+  visionlive: "https://vision-live.vercel.app",
   email: "maikelhernandezr4201@gmail.com",
 };
 
@@ -69,6 +70,9 @@ const PF_I18N = {
     hookwireSummary: "Servicio de entrega de webhooks con reintentos y firmas.",
     hookwireDesc:
       "Plataforma de delivery de webhooks sobre Vercel Functions y Neon Postgres: la cola vive en Postgres con claim concurrente (FOR NO KEY UPDATE SKIP LOCKED), reintentos con backoff exponencial y dead-letter queue. Cada webhook lleva firma HMAC-SHA256 estilo Stripe verificada con timingSafeEqual, entrega at-least-once idempotente y rate limiting por IP. Demo en vivo con sesiones aisladas por navegador.",
+    visionSummary: "Detección de objetos en tiempo real, dentro del navegador.",
+    visionDesc:
+      "App de visión por computadora 100% en el cliente: un modelo YOLOS corre localmente con WebGPU (con fallback a WebAssembly) vía Transformers.js sobre ONNX Runtime. El modelo se descarga y cachea una sola vez, y la cámara nunca sale del dispositivo, así que no hay backend ni API key. Un frame se procesa a la vez para no bloquear la UI, con telemetría de inferencia y detecciones por segundo.",
     seeProject: "VER PROYECTO",
     moreSoon: "Más proyectos en camino.",
     navGithub: "GITHUB",
@@ -111,6 +115,9 @@ const PF_I18N = {
     hookwireSummary: "Webhook delivery service with retries and signatures.",
     hookwireDesc:
       "Webhook delivery platform on Vercel Functions and Neon Postgres: the queue lives in Postgres with concurrent claiming (FOR NO KEY UPDATE SKIP LOCKED), exponential backoff retries and a dead-letter queue. Every webhook carries a Stripe-style HMAC-SHA256 signature verified with timingSafeEqual, idempotent at-least-once delivery and per-IP rate limiting. Live demo with per-browser isolated sessions.",
+    visionSummary: "Real-time object detection that runs in your browser.",
+    visionDesc:
+      "Fully client-side computer vision app: a YOLOS model runs locally with WebGPU (with a WebAssembly fallback) via Transformers.js on ONNX Runtime. The model downloads and caches once, and the camera feed never leaves the device, so there's no backend and no API key. A single frame is processed at a time so the UI never blocks, with live inference and detections-per-second telemetry.",
     seeProject: "SEE PROJECT",
     moreSoon: "More projects coming soon.",
     navGithub: "GITHUB",

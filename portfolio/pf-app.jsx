@@ -83,6 +83,7 @@ function PfApp() {
     { group: t.paletteLinks, label: "Email", hint: PF_LINKS.email, run: () => { location.href = "mailto:" + PF_LINKS.email; } },
     { group: t.paletteLinks, label: "DocuMind", hint: "documind-lake.vercel.app", run: ext(PF_LINKS.documind) },
     { group: t.paletteLinks, label: "Hookwire", hint: "hookwire.vercel.app", run: ext(PF_LINKS.hookwire) },
+    { group: t.paletteLinks, label: "Vision Live", hint: "vision-live.vercel.app", run: ext(PF_LINKS.visionlive) },
   ];
 
   return (
@@ -206,7 +207,32 @@ function PfApp() {
             </div>
           </div>
         </article>
-        <div className="pf-moresoon rv d3">
+        <article className="pf-poster rv d3" style={{ "--acc": "#ff6b4a" }}>
+          <div className="pf-poster-top">
+            <h3 className="pf-pname">Vision<br />Live<sup>®</sup></h3>
+            <span className="pf-live">{t.live}</span>
+          </div>
+          <div className="pf-poster-body">
+            <div>
+              <p className="pf-pdesc"><b>{t.visionSummary}</b> {t.visionDesc}</p>
+              <div className="pf-ptags">
+                <span className="pf-ptag">Computer Vision</span>
+                <span className="pf-ptag">React 19</span>
+                <span className="pf-ptag">TypeScript</span>
+                <span className="pf-ptag">WebGPU</span>
+                <span className="pf-ptag">Transformers.js · ONNX</span>
+                <span className="pf-ptag">On-device</span>
+              </div>
+              <a className="pf-parrow" href={PF_LINKS.visionlive} target="_blank" rel="noopener">
+                {t.seeProject} <i>⟶</i>
+              </a>
+            </div>
+            <div className="pf-shotframe">
+              <img src="portfolio/visionlive.png" alt="Vision Live, detección de objetos en tiempo real en el navegador" />
+            </div>
+          </div>
+        </article>
+        <div className="pf-moresoon rv d4">
           <span>{t.moreSoon}</span>
           <span className="mono">// WIP</span>
         </div>
