@@ -84,6 +84,7 @@ function PfApp() {
     { group: t.paletteLinks, label: "DocuMind", hint: "documind-lake.vercel.app", run: ext(PF_LINKS.documind) },
     { group: t.paletteLinks, label: "Hookwire", hint: "hookwire.vercel.app", run: ext(PF_LINKS.hookwire) },
     { group: t.paletteLinks, label: "Vision Live", hint: "vision-live.vercel.app", run: ext(PF_LINKS.visionlive) },
+    { group: t.paletteLinks, label: "Cristales de Cueva", hint: "cristales-de-cueva.vercel.app", run: ext(PF_LINKS.cristales) },
   ];
 
   return (
@@ -232,7 +233,32 @@ function PfApp() {
             </div>
           </div>
         </article>
-        <div className="pf-moresoon rv d4">
+        <article className="pf-poster rv d4" style={{ "--acc": "#f2c14e" }}>
+          <div className="pf-poster-top">
+            <h3 className="pf-pname">Cristales<br />de Cueva<sup>®</sup></h3>
+            <span className="pf-live">{t.live}</span>
+          </div>
+          <div className="pf-poster-body">
+            <div>
+              <p className="pf-pdesc"><b>{t.cristalesSummary}</b> {t.cristalesDesc}</p>
+              <div className="pf-ptags">
+                <span className="pf-ptag">Game Dev</span>
+                <span className="pf-ptag">TypeScript</span>
+                <span className="pf-ptag">Canvas 2D</span>
+                <span className="pf-ptag">Web Audio API</span>
+                <span className="pf-ptag">Pixel-art por código</span>
+                <span className="pf-ptag">Vite</span>
+              </div>
+              <a className="pf-parrow" href={PF_LINKS.cristales} target="_blank" rel="noopener">
+                {t.seeProject} <i>⟶</i>
+              </a>
+            </div>
+            <div className="pf-shotframe">
+              <img src="portfolio/cristales.png" alt="Cristales de la Cueva, plataformero de acción pixel-art" />
+            </div>
+          </div>
+        </article>
+        <div className="pf-moresoon rv d5">
           <span>{t.moreSoon}</span>
           <span className="mono">// WIP</span>
         </div>

@@ -6,6 +6,7 @@ const PF_LINKS = {
   documind: "https://documind-lake.vercel.app",
   hookwire: "https://hookwire.vercel.app",
   visionlive: "https://vision-live.vercel.app",
+  cristales: "https://cristales-de-cueva.vercel.app",
   email: "maikelhernandezr4201@gmail.com",
 };
 
@@ -73,6 +74,9 @@ const PF_I18N = {
     visionSummary: "Detección de objetos en tiempo real, dentro del navegador.",
     visionDesc:
       "App de visión por computadora 100% en el cliente: un modelo YOLOS corre localmente con WebGPU (con fallback a WebAssembly) vía Transformers.js sobre ONNX Runtime. El modelo se descarga y cachea una sola vez, y la cámara nunca sale del dispositivo, así que no hay backend ni API key. Un frame se procesa a la vez para no bloquear la UI, con telemetría de inferencia y detecciones por segundo.",
+    cristalesSummary: "Plataformero de acción pixel-art, con arte dibujado por código.",
+    cristalesDesc:
+      "Metroidvania en TypeScript + Vite + Canvas, sin un solo asset externo: cada sprite es una grilla de píxeles con su paleta, y la atmósfera (rayos de luz, brasas, niebla, parallax) se genera en tiempo real. Game feel cuidado con coyote time, jump buffering, hit-stop y sacudida de cámara; mundo por salas con checkpoints y minimapa; habilidades (doble salto, dash, wall jump), combate con jefe, y sonido por Web Audio API sin archivos. Soporta teclado y gamepad con prompts adaptativos.",
     seeProject: "VER PROYECTO",
     moreSoon: "Más proyectos en camino.",
     navGithub: "GITHUB",
@@ -118,6 +122,9 @@ const PF_I18N = {
     visionSummary: "Real-time object detection that runs in your browser.",
     visionDesc:
       "Fully client-side computer vision app: a YOLOS model runs locally with WebGPU (with a WebAssembly fallback) via Transformers.js on ONNX Runtime. The model downloads and caches once, and the camera feed never leaves the device, so there's no backend and no API key. A single frame is processed at a time so the UI never blocks, with live inference and detections-per-second telemetry.",
+    cristalesSummary: "Pixel-art action platformer with art drawn entirely in code.",
+    cristalesDesc:
+      "Metroidvania built with TypeScript + Vite + Canvas, with no external assets: every sprite is a pixel grid with its own palette, and the atmosphere (light rays, embers, fog, parallax) is generated at runtime. Careful game feel with coyote time, jump buffering, hit-stop and camera shake; a room-based world with checkpoints and a revealing minimap; abilities (double jump, dash, wall jump), combat with a boss, and Web Audio API sound with no audio files. Keyboard and gamepad with adaptive prompts.",
     seeProject: "SEE PROJECT",
     moreSoon: "More projects coming soon.",
     navGithub: "GITHUB",

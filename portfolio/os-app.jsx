@@ -175,6 +175,13 @@ const Ic = {
       <circle cx="20" cy="20" r="5" />
     </g>
   ),
+  gem: (
+    <g>
+      <path d="M12 6 h16 l8 10 -16 20 -16 -20 z" />
+      <path d="M4 16 h32" />
+      <path d="M12 6 l8 10 8 -10 M20 16 l0 20" />
+    </g>
+  ),
 };
 
 function OsIcon({ name, size = 38 }) {
@@ -287,6 +294,14 @@ function ProjectsApp() {
         </div>
         <i>↗</i>
       </a>
+      <a className="feat" href={PF_LINKS.cristales} target="_blank" rel="noopener">
+        <OsIcon name="gem" size={30} />
+        <div>
+          <b>Cristales de Cueva</b>
+          <span>Game Dev · TypeScript · Canvas · Web Audio</span>
+        </div>
+        <i>↗</i>
+      </a>
       <div className="lbl">{OS_T.projRepos}</div>
       {state.loading && <div className="note">{OS_T.projLoading}</div>}
       {state.error && (
@@ -314,7 +329,7 @@ const OS_TERM = {
       "skills      stack técnico",
       "projects    proyectos",
       "contact     contacto y redes",
-      "open <x>    abre github | linkedin | documind | hookwire | visionlive",
+      "open <x>    abre github | linkedin | documind | hookwire | visionlive | cristales",
       "back        vuelve al portafolio",
       "shutdown    apaga MaikelDOS",
       "clear       limpia la pantalla",
@@ -323,7 +338,7 @@ const OS_TERM = {
     whoami: ["Maikel Hernández · Full Stack Developer", "Costa Rica · egresado del TEC"],
     notFound: (c) => "comando no encontrado: " + c + ". Escribe 'help'.",
     sudo: "sudo: permiso denegado",
-    openWhat: "uso: open github | linkedin | documind | hookwire | visionlive",
+    openWhat: "uso: open github | linkedin | documind | hookwire | visionlive | cristales",
     opening: (x) => "abriendo " + x + "…",
   },
   en: {
@@ -334,7 +349,7 @@ const OS_TERM = {
       "skills      tech stack",
       "projects    projects",
       "contact     contact and links",
-      "open <x>    opens github | linkedin | documind | hookwire | visionlive",
+      "open <x>    opens github | linkedin | documind | hookwire | visionlive | cristales",
       "back        returns to the portfolio",
       "shutdown    shuts down MaikelDOS",
       "clear       clears the screen",
@@ -343,7 +358,7 @@ const OS_TERM = {
     whoami: ["Maikel Hernández · Full Stack Developer", "Costa Rica · TEC graduate"],
     notFound: (c) => "command not found: " + c + ". Type 'help'.",
     sudo: "sudo: permission denied",
-    openWhat: "usage: open github | linkedin | documind | hookwire | visionlive",
+    openWhat: "usage: open github | linkedin | documind | hookwire | visionlive | cristales",
     opening: (x) => "opening " + x + "…",
   },
 }[OS_LANG];
@@ -369,14 +384,14 @@ function TerminalApp({ onExit, onShutdown }) {
         PF_SKILLS.forEach((g) => out.push(g.group[OS_LANG] + ": " + g.items.map(([n]) => n).join(", ")));
         break;
       case "projects":
-        out.push("DocuMind · " + PF_LINKS.documind, "Hookwire · " + PF_LINKS.hookwire, "Vision Live · " + PF_LINKS.visionlive, PF_LINKS.github);
+        out.push("DocuMind · " + PF_LINKS.documind, "Hookwire · " + PF_LINKS.hookwire, "Vision Live · " + PF_LINKS.visionlive, "Cristales de Cueva · " + PF_LINKS.cristales, PF_LINKS.github);
         break;
       case "contact":
         out.push(PF_LINKS.email, PF_LINKS.github, PF_LINKS.linkedin);
         break;
       case "open": {
         const target = (args[0] || "").toLowerCase();
-        const urls = { github: PF_LINKS.github, linkedin: PF_LINKS.linkedin, documind: PF_LINKS.documind, hookwire: PF_LINKS.hookwire, visionlive: PF_LINKS.visionlive };
+        const urls = { github: PF_LINKS.github, linkedin: PF_LINKS.linkedin, documind: PF_LINKS.documind, hookwire: PF_LINKS.hookwire, visionlive: PF_LINKS.visionlive, cristales: PF_LINKS.cristales };
         if (urls[target]) { out.push(OS_TERM.opening(target)); window.open(urls[target], "_blank", "noopener"); }
         else out.push(OS_TERM.openWhat);
         break;

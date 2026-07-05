@@ -236,4 +236,5 @@ body { margin: 0; background: #07080c; }
   .rv.in { opacity: 1; transform: none; }
   .rv.in.settled { transition: none; }
   .rv.d1 { transition-delay: .08s; } .rv.d2 { transition-delay: .16s; } .rv.d3 { transition-delay: .24s; }
+  .rv.d4 { transition-delay: .32s; } .rv.d5 { transition-delay: .40s; }
 }
